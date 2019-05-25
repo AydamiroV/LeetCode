@@ -1,0 +1,24 @@
+/*
+ * The approach uses Maps to speed up the process. 
+ * that is, instead of iterating through the string every time,
+ * we can just add the character to map, and the size of the current substring without duplicates
+ */
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        int i,j;
+        int res = 0;
+        int n = s.length();
+        char ch;
+        Map<Character, Integer> m = new HashMap<>();
+        for(i = 0, j = 0; j < n; j++){
+            ch = s.charAt(j);
+            if(m.containsKey(ch)){
+                i = Math.max(m.get(ch), i);
+            }
+            res = Math.max(res , j - i + 1);
+            m.put(s.charAt(j), j + 1);
+        }
+        return res;
+    }
+
+}
