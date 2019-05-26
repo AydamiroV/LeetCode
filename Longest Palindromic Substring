@@ -1,0 +1,42 @@
+class Solution {
+    public static String longestPalindrome(String s) {
+        int n = s.length();
+        
+        if(n == 0 || s == null){
+            return "";
+        }
+        if(n == 1){
+            return s;
+        }
+        //if size is larger than 2, then check if it is 
+        int lowBound; // beginning of the original string
+        int start = 0; // beginning of the final substring
+        int max = 1;
+        int first, last; // bounds of substring that is being checked
+        for (lowBound = 1; lowBound < n; lowBound++) {
+            first = lowBound - 1;
+            last = lowBound;
+            //substring of even size
+            while(first >= 0 && last < n && s.charAt(first) == s.charAt(last)){
+                if((last - first + 1) > max){
+                    start = first;
+                    max = last - first + 1;
+                }
+                last++;
+                first--;
+            }
+            //substring of odd size
+            first = lowBound - 1;
+            last = lowBound + 1;
+            while(first >= 0 && last < n && s.charAt(first) == s.charAt(last)){
+                if((last - first + 1) > max){
+                    start = first;
+                    max = last - first + 1;
+                }
+                last++;
+                first--;
+            }
+        }
+        return s.substring(start, start + max);
+    }
+}
