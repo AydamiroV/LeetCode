@@ -1,0 +1,33 @@
+    public static int search(int[] nums, int target) {
+    
+        if(nums == null || nums.length == 0){
+            return -1;
+        }
+        int end = nums.length - 1;
+        int start = 0;
+        int mid = 0;
+        while(start <= end){
+            mid = start + (end - start) / 2;
+            //base case for binary search
+            if(nums[mid] == target){
+                return mid;
+            // check the left part
+            }else if(nums[mid] > target) {
+            //if target is smaller than last element of the subarray, move the start index
+                if (nums[end] >= target && nums[end] < nums[mid]) {
+                    start = mid + 1;
+                } else {
+                //else move the end index
+                    end = mid - 1;
+                }
+            }else{
+            //check right side 
+                if (nums[start] > nums[mid] && nums[start] <= target) {
+                    end = mid - 1;
+                } else {
+                    start = mid + 1;
+                }
+            }
+        }
+        return -1;
+    }
